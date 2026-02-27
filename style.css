@@ -1,0 +1,1010 @@
+:root {
+    --bg-color: #ffffff;
+    --card-bg: #f1f5f9;
+    --text-main: #1e293b;
+    --text-muted: #475569;
+    --accent: #3b82f6;
+    --border-color: #e2e8f0;
+    --footer-bg: #f8fafc;
+}
+
+/* --- 3. Aplicación de las variables al Body --- */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    margin: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Transición suave */
+}
+
+/* --- 2. Variables para Modo Oscuro (Se activan con la clase .dark-mode) --- */
+body.dark-mode {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent: #60a5fa;
+    --border-color: #334155;
+    --footer-bg: #1e293b;
+}
+
+/* Cambiar el icono cuando esté en modo oscuro */
+body.dark-mode .float-theme i {
+    filter: drop-shadow(0 0 5px #fbbf24);
+    /* Brillo amarillo para el sol */
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.8);
+    /* Blanco translúcido */
+    backdrop-filter: blur(10px);
+    /* Efecto de desenfoque de cristal */
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 3000;
+    /* Por encima de todo */
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+/* Ajuste para modo oscuro automático */
+body.dark-mode .navbar {
+    background: rgba(15, 23, 42, 0.8);
+    /* Azul oscuro translúcido */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo */
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-brand i {
+    color: var(--accent);
+}
+
+.nav-brand span {
+    color: var(--accent);
+}
+
+/* Links */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+/* Animación de línea debajo al pasar el mouse */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+/* Botón de acción en el Nav */
+.nav-btn-contact {
+    background-color: var(--accent);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-btn-contact:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+/* Esconder links en celulares muy pequeños (luego podemos hacer el menú hamburguesa) */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/*.card-footer {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}*/
+
+.card-footer {
+    display: flex;
+    gap: 15px;
+}
+
+.card-footer a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card-footer a:hover {
+    text-decoration: underline;
+}
+
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.tag {
+    background: #e0e7ff; /* Azul pastel */
+    color: #4338ca; /* Azul oscuro para texto */
+    font-size: 0.75rem;
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+}
+
+/* --- Botones y Footer de la Card --- */
+.card-footer {
+    display: flex;
+    gap: 12px;
+    margin-top: auto;
+    /* Empuja los botones al fondo de la card */
+    padding-top: 20px;
+}
+
+/* Estilo Base para Botones */
+/*.btn-code,
+.btn-visit {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}*/
+
+.btn-code, .btn-visit {
+    padding: 12px 20px;
+    border-radius: 15px; /* Bordes menos redondeados que la card pero suaves */
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Botón Ver Código (Estilo Outlined) */
+.btn-code {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e2e8f0;
+}
+
+.btn-code:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Botón Visitar Sitio (Estilo Degradado Moderno) */
+.btn-visit {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-visit:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-visit:active {
+    transform: translateY(0);
+}
+
+/* --- Ajuste de la Card para que los botones queden abajo --- */
+
+
+.project-card {
+    background: #ffffff; /* Fondo blanco puro en modo claro */
+    border-radius: 35px; /* Bordes muy redondeados como Especialidades */
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid rgba(0,0,0,0.03);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent);
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0 0 10px 0;
+}
+
+.description {
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    flex-grow: 1; /* Empuja los botones hacia abajo */
+}
+
+
+/* --- SPLASH SCREEN --- */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #0f172a; /* Fondo oscuro profundo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Por encima de todo */
+    transition: opacity 0.6s ease, visibility 0.6s;
+}
+
+.splash-content {
+    text-align: center;
+}
+
+.splash-logo {
+    font-size: 4rem;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.splash-logo i {
+    color: var(--accent);
+    font-size: 2.5rem;
+    animation: pulse-icon 2s infinite;
+}
+
+.splash-logo span span {
+    color: var(--accent); /* La 'A' de Alarcón en azul */
+}
+
+.splash-text {
+    color: #94a3b8;
+    margin-top: 15px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Barra de carga */
+.splash-loader {
+    width: 200px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.loader-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--accent);
+    animation: progress-bar 2.5s ease-in-out forwards;
+}
+
+/* Animaciones */
+@keyframes pulse-icon {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+@keyframes progress-bar {
+    0% { width: 0%; }
+    50% { width: 70%; }
+    100% { width: 100%; }
+}
+
+/* Clase para ocultar */
+#splash-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.logo-container {
+    text-align: center;
+}
+
+.main-logo {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #3b82f6;
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+    animation: pulse 3s infinite;
+}
+
+.loader-line {
+    width: 100px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.loader-line::after {
+    content: '';
+    position: absolute;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #3b82f6;
+    animation: loading-bar 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes loading-bar {
+    100% {
+        left: 100%;
+    }
+}
+
+/* Clase para ocultar el splash */
+.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+/* --- Layout de Secciones --- */
+.section-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section-container h2 {
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- Grid para los proyectos generados por JS --- */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* --- FOOTER PROFESIONAL --- */
+.site-footer {
+    background-color: var(--footer-bg);
+    border-top: 4px solid var(--primary);
+    padding: 60px 20px 20px;
+    position: relative;
+    overflow: hidden;
+    color: var(--text-main);
+}
+
+/* Marca de agua de fondo */
+.footer-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.03;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 8rem;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.footer-watermark span {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+.footer-watermark small {
+    font-size: 1.5rem;
+    letter-spacing: 10px;
+}
+
+.footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 250px;
+}
+
+
+.brand-col h3 {
+    font-size: 1.8rem;
+    margin: 0 0 15px 0;
+    color: var(--text-main);
+}
+
+.brand-col h3 em {
+    font-style: italic;
+    font-weight: 800;
+}
+
+.brand-col h3 span {
+    color: var(--primary);
+    font-weight: 300;
+}
+
+.social-links a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: #1e293b;
+    color: white;
+    border-radius: 8px;
+    margin-right: 10px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    background: var(--accent);
+    transform: translateY(-3px);
+}
+
+.nav-col h4,
+.location-col h4 {
+    color: var(--primary);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.nav-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-col ul li {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.nav-col ul li a {
+    color: var(--text-main);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-col ul li a:hover {
+    color: var(--primary);
+}
+
+.nav-col ul li i {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-right: 5px;
+}
+
+.btn-top {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 1rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-bottom {
+    max-width: 1100px;
+    margin: 40px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--text-muted);
+}
+
+.accessibility-badge {
+    color: #16a34a;
+    /* Verde */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.accessibility-badge .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #16a34a;
+    border-radius: 50%;
+}
+
+/* --- BOTONES FLOTANTES --- */
+/* 1. Estilo base de los botones (Sin position fixed aquí) */
+.float-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.float-btn:hover {
+    transform: scale(1.1);
+}
+
+
+/* 2. WhatsApp (Se queda a la izquierda, este sí es fixed por sí solo) */
+.float-wa {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background-color: #25D366;
+    z-index: 2000;
+}
+
+/* 3. Contenedor de la Derecha (Donde irán los 3 botones) */
+.float-controls {
+    position: fixed;
+    bottom: 30px;
+    /* Distancia del suelo */
+    right: 30px;
+    /* Distancia de la derecha */
+    display: flex;
+    flex-direction: column-reverse;
+    /* El primero que pongas queda abajo */
+    gap: 15px;
+    z-index: 2000;
+}
+
+/* 4. Color específico del botón de tema */
+.float-theme {
+    background-color: #1e293b;
+    /* Color oscuro inicial */
+}
+
+.float-btn i {
+    pointer-events: none;
+    /* Evita que el clic sea al icono y no al botón */
+}
+
+.float-text {
+    background-color: var(--bg-color);
+    /* Se adapta al modo oscuro/claro */
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+.float-audio {
+    background-color: var(--accent); /* Usamos la variable para que cambie sola */
+    color: white;
+    transition: all 0.3s ease;
+}
+
+/* Animación opcional para cuando esté leyendo */
+.reading-active {
+    animation: pulse-audio 1.5s infinite;
+}
+
+@keyframes pulse-audio {
+    0% {
+        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(56, 189, 248, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+    }
+}
+
+.float-up {
+    background-color: var(--accent); /* Cambiamos el color fijo por la variable */
+    color: white;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+/* Clase que activaremos con JS cuando el usuario haga scroll */
+.float-up.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* --- Forzar colores específicos si quieres que se vean distintos en Dark Mode --- */
+body.dark-mode .float-audio {
+    background-color: #0284c7; /* Un azul más profundo para el modo oscuro */
+}
+
+body.dark-mode .float-up {
+    background-color: #0284c7;
+}
+
+/* Estado inicial (Muy abajo y pequeño) */
+.reveal {
+    opacity: 0;
+    transform: translateY(100px) scale(0.95); /* Movimiento más exagerado */
+    transition: all 1s cubic-bezier(0.17, 0.67, 0.83, 0.67); /* Curva más dramática */
+    will-change: transform, opacity; /* Optimiza para que se vea fluido */
+}
+
+/* Estado activo (Posición normal) */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Opcional: Si quieres que los títulos aparezcan un poco antes o diferente */
+.section-container h2 {
+    position: relative;
+    display: inline-block;
+}
+
+.section-container h2::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 4px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent);
+    transition: width 1s ease 0.4s; /* Aparece después de la sección */
+}
+
+.reveal.active h2::after {
+    width: 100%;
+}
+
+/* --- Contenedor de Perfil (Flexbox para alinear texto y foto) --- */
+.perfil-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap; /* Responsive */
+    margin-top: 30px;
+}
+
+.perfil-texto {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* --- ESTILOS 3D PARA LA FOTO --- */
+.perfil-foto-wraper {
+    width: 250px;
+    height: 250px;
+    /* 1. Crea la perspectiva 3D (cuanto menor el nº, más exagerado) */
+    perspective: 1000px; 
+    border-radius: 50%; /* Foto redonda */
+    margin: 0 auto; /* Centrar en móvil */
+}
+
+.perfil-foto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la foto no se estire */
+    border-radius: 50%;
+    border: 5px solid #ffffff; /* Borde blanco estilo foto */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* Sombra inicial */
+    
+    /* 2. Suaviza el movimiento */
+    transition: transform 0.1s ease-out, box-shadow 0.2s ease;
+    
+    /* 3. Evita que la imagen se corte al girar */
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+/* Ajuste para Modo Oscuro (cambia el borde) */
+body.dark-mode .perfil-foto {
+    border-color: var(--card-bg);
+}
+
+/* Responsive: foto arriba en móviles */
+@media (max-width: 768px) {
+    .perfil-container {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+}
+
+/* --- Estilos para la Sección Especialidades --- */
+
+.section-title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.section-title-wrapper i {
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+.especialidades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.especialidad-card {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 30px; /* Bordes muy redondeados como en la imagen */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+.especialidad-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.especialidad-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.especialidad-icon i {
+    font-size: 2rem;
+    color: var(--accent); /* Azul de tu paleta */
+}
+
+.especialidad-card h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0;
+}
+
+.especialidad-card p {
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Adaptación a Modo Oscuro */
+body.dark-mode .especialidad-card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .especialidad-card h3 {
+    color: var(--text-main);
+}
+
+body.dark-mode .especialidad-card p {
+    color: var(--text-muted);
+}
+
+/* --- Estilos para Metodología (Estilo Numerado) --- */
+
+.metodologia-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+}
+
+.metodo-card {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 35px; /* Bordes extra redondeados como la imagen */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0,0,0,0.03);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.metodo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.metodo-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #e0e7ff; /* Azul muy clarito */
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+.metodo-card h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 15px;
+}
+
+.metodo-card p {
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Adaptación a Modo Oscuro */
+body.dark-mode .metodo-card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .metodo-number {
+    color: rgba(96, 165, 250, 0.2); /* Azul translúcido en modo oscuro */
+}
+
+body.dark-mode .metodo-card h3 {
+    color: var(--text-main);
+}
+
+body.dark-mode .metodo-card p {
+    color: var(--text-muted);
+}
+
+/* --- MODO OSCURO PARA PROYECTOS --- */
+body.dark-mode .project-card {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .project-card h3 { color: var(--text-main); }
+body.dark-mode .description { color: var(--text-muted); }
+body.dark-mode .btn-code { background: #334155; color: white; }
+
+body.dark-mode .tag {
+    background: rgba(96, 165, 250, 0.1);
+    color: #60a5fa;
+}
