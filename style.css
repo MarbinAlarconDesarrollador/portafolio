@@ -139,16 +139,143 @@ body.dark-mode .navbar {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 .nav-btn-contact:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
-/* Esconder links en celulares muy pequeños (luego podemos hacer el menú hamburguesa) */
+/* --- MENÚ HAMBURGUESA --- */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    z-index: 3100;
+}
+
+.hamburger:hover {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2.5px;
+    background-color: var(--text-main);
+    border-radius: 4px;
+    transition: transform 0.35s ease, opacity 0.25s ease, width 0.3s ease;
+    transform-origin: center;
+}
+
+.hamburger.open span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+    width: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+}
+
+.mobile-menu {
+    display: flex;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 20px 24px 28px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    z-index: 2999;
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+body.dark-mode .mobile-menu {
+    background: rgba(15, 23, 42, 0.97);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+
+.mobile-nav-links {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.mobile-nav-link {
+    display: block;
+    padding: 12px 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:focus {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--accent);
+}
+
+.nav-btn-mobile {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    /* Mayor separación de la lista de enlaces */
+    padding: 12px 20px;
+    /* Botón más alto para mejorar la experiencia táctil */
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1.05rem;
+    /* Texto un poco más legible en celular */
+    height: fit-content;
+
+}
+
+/* Lógica responsiva para la navegación */
 @media (max-width: 768px) {
-    .nav-links {
+
+    /* Ocultamos los links normales y el botón de contacto del header */
+    .nav-links,
+    .nav-btn-contact:not(.nav-btn-mobile) {
         display: none;
     }
+
+    /* Mostramos el botón hamburguesa */
+    .hamburger {
+        display: flex;
+    }
+
 }
 
 .card-header {
@@ -157,14 +284,6 @@ body.dark-mode .navbar {
     align-items: center;
     margin-bottom: 10px;
 }
-
-/*.card-footer {
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.9rem;
-}*/
 
 .card-footer {
     display: flex;
@@ -190,8 +309,10 @@ body.dark-mode .navbar {
 }
 
 .tag {
-    background: #e0e7ff; /* Azul pastel */
-    color: #4338ca; /* Azul oscuro para texto */
+    background: #e0e7ff;
+    /* Azul pastel */
+    color: #4338ca;
+    /* Azul oscuro para texto */
     font-size: 0.75rem;
     padding: 5px 14px;
     border-radius: 50px;
@@ -210,25 +331,12 @@ body.dark-mode .navbar {
     padding-top: 20px;
 }
 
-/* Estilo Base para Botones */
-/*.btn-code,
-.btn-visit {
-    flex: 1;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}*/
 
-.btn-code, .btn-visit {
+.btn-code,
+.btn-visit {
     padding: 12px 20px;
-    border-radius: 15px; /* Bordes menos redondeados que la card pero suaves */
+    border-radius: 15px;
+    /* Bordes menos redondeados que la card pero suaves */
     font-size: 0.9rem;
     font-weight: 700;
     text-decoration: none;
@@ -275,13 +383,15 @@ body.dark-mode .navbar {
 
 
 .project-card {
-    background: #ffffff; /* Fondo blanco puro en modo claro */
-    border-radius: 35px; /* Bordes muy redondeados como Especialidades */
+    background: #ffffff;
+    /* Fondo blanco puro en modo claro */
+    border-radius: 35px;
+    /* Bordes muy redondeados como Especialidades */
     padding: 35px;
     display: flex;
     flex-direction: column;
     height: 100%;
-    border: 1px solid rgba(0,0,0,0.03);
+    border: 1px solid rgba(0, 0, 0, 0.03);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
@@ -306,7 +416,8 @@ body.dark-mode .navbar {
     font-size: 0.95rem;
     line-height: 1.6;
     margin-bottom: 25px;
-    flex-grow: 1; /* Empuja los botones hacia abajo */
+    flex-grow: 1;
+    /* Empuja los botones hacia abajo */
 }
 
 
@@ -317,11 +428,13 @@ body.dark-mode .navbar {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: #0f172a; /* Fondo oscuro profundo */
+    background-color: #0f172a;
+    /* Fondo oscuro profundo */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Por encima de todo */
+    z-index: 9999;
+    /* Por encima de todo */
     transition: opacity 0.6s ease, visibility 0.6s;
 }
 
@@ -347,7 +460,8 @@ body.dark-mode .navbar {
 }
 
 .splash-logo span span {
-    color: var(--accent); /* La 'A' de Alarcón en azul */
+    color: var(--accent);
+    /* La 'A' de Alarcón en azul */
 }
 
 .splash-text {
@@ -378,15 +492,34 @@ body.dark-mode .navbar {
 
 /* Animaciones */
 @keyframes pulse-icon {
-    0% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.1); opacity: 1; }
-    100% { transform: scale(1); opacity: 0.8; }
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
 }
 
 @keyframes progress-bar {
-    0% { width: 0%; }
-    50% { width: 70%; }
-    100% { width: 100%; }
+    0% {
+        width: 0%;
+    }
+
+    50% {
+        width: 70%;
+    }
+
+    100% {
+        width: 100%;
+    }
 }
 
 /* Clase para ocultar */
@@ -475,11 +608,304 @@ body.dark-mode .navbar {
 }
 
 /* --- Grid para los proyectos generados por JS --- */
+/* ===== SECCIÓN PROYECTOS ===== */
+#proyectos {
+    padding: 80px 0;
+}
+
+.projects-header {
+    margin-bottom: 56px;
+}
+
+.section-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.78rem;
+    color: var(--accent, #6c63ff);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    opacity: 0.85;
+}
+
+.projects-header h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+}
+
+.projects-header h2 em {
+    font-style: italic;
+    color: var(--accent, #6c63ff);
+}
+
+.projects-header p {
+    font-size: 1rem;
+    opacity: 0.6;
+    max-width: 380px;
+}
+
+/* ===== GRID ===== */
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 0;
+}
+
+/* ===== CARD ===== */
+.project-card {
+    animation: cardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    border-radius: 16px;
+}
+
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform: translateY(28px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.card-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 26px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+    background: var(--card-bg, #fff);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Línea de acento superior al hover */
+.card-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent, #6c63ff), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+}
+
+.project-card:hover .card-inner::before {
+    transform: scaleX(1);
+}
+
+.project-card:hover .card-inner {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.10);
+    border-color: var(--accent, #6c63ff);
+}
+
+/* ===== CARD TOP ===== */
+.card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--accent-light, rgba(108, 99, 255, 0.1));
+    color: var(--accent, #6c63ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.card-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-updated {
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+    opacity: 0.45;
+}
+
+.card-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent, #6c63ff);
+    background: var(--accent-light, rgba(108, 99, 255, 0.1));
+    padding: 3px 9px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.card-live:hover {
+    background: var(--accent, #6c63ff);
+    color: #fff;
+}
+
+/* ===== CARD BODY ===== */
+.card-body {
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+}
+
+.card-desc {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    opacity: 0.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ===== CARD FOOTER ===== */
+.card-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color, rgba(0, 0, 0, 0.08));
+}
+
+.card-langs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex: 1;
+}
+
+.lang-tag {
+    font-size: 0.68rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: var(--tag-bg, rgba(0, 0, 0, 0.06));
+    color: inherit;
+    opacity: 0.75;
+}
+
+.card-stats {
+    display: flex;
+    gap: 10px;
+}
+
+.stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75rem;
+    opacity: 0.45;
+    font-weight: 500;
+}
+
+.card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent, #6c63ff);
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--accent, #6c63ff);
+    transition: all 0.2s ease;
+    margin-left: auto;
+}
+
+.card-link:hover {
+    background: var(--accent, #6c63ff);
+    color: #fff;
+}
+
+/* ===== LOADING ===== */
+.loading {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    opacity: 0.5;
+    font-size: 0.9rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* ===== DARK MODE ===== */
+body.dark-mode .card-inner {
+    background: var(--card-bg, #1a1a2e);
+    border-color: var(--border-color, rgba(255, 255, 255, 0.08));
+}
+
+body.dark-mode .lang-tag {
+    background: rgba(255, 255, 255, 0.07);
+}
+
+body.dark-mode .project-card:hover .card-inner {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 640px) {
+    #proyectos {
+        padding: 60px 0;
+    }
+
+    .projects-header {
+        margin-bottom: 36px;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .card-inner {
+        padding: 20px;
+    }
+
+    .card-footer {
+        gap: 8px;
+    }
+
+    .card-link {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* --- FOOTER PROFESIONAL --- */
@@ -712,7 +1138,8 @@ body.dark-mode .navbar {
 }
 
 .float-audio {
-    background-color: var(--accent); /* Usamos la variable para que cambie sola */
+    background-color: var(--accent);
+    /* Usamos la variable para que cambie sola */
     color: white;
     transition: all 0.3s ease;
 }
@@ -737,13 +1164,15 @@ body.dark-mode .navbar {
 }
 
 .float-up {
-    background-color: var(--accent); /* Cambiamos el color fijo por la variable */
+    background-color: var(--accent);
+    /* Cambiamos el color fijo por la variable */
     color: white;
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
     transition: all 0.4s ease;
 }
+
 /* Clase que activaremos con JS cuando el usuario haga scroll */
 .float-up.show {
     opacity: 1;
@@ -753,7 +1182,8 @@ body.dark-mode .navbar {
 
 /* --- Forzar colores específicos si quieres que se vean distintos en Dark Mode --- */
 body.dark-mode .float-audio {
-    background-color: #0284c7; /* Un azul más profundo para el modo oscuro */
+    background-color: #0284c7;
+    /* Un azul más profundo para el modo oscuro */
 }
 
 body.dark-mode .float-up {
@@ -763,9 +1193,12 @@ body.dark-mode .float-up {
 /* Estado inicial (Muy abajo y pequeño) */
 .reveal {
     opacity: 0;
-    transform: translateY(100px) scale(0.95); /* Movimiento más exagerado */
-    transition: all 1s cubic-bezier(0.17, 0.67, 0.83, 0.67); /* Curva más dramática */
-    will-change: transform, opacity; /* Optimiza para que se vea fluido */
+    transform: translateY(100px) scale(0.95);
+    /* Movimiento más exagerado */
+    transition: all 1s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    /* Curva más dramática */
+    will-change: transform, opacity;
+    /* Optimiza para que se vea fluido */
 }
 
 /* Estado activo (Posición normal) */
@@ -788,7 +1221,8 @@ body.dark-mode .float-up {
     bottom: -5px;
     left: 0;
     background-color: var(--accent);
-    transition: width 1s ease 0.4s; /* Aparece después de la sección */
+    transition: width 1s ease 0.4s;
+    /* Aparece después de la sección */
 }
 
 .reveal.active h2::after {
@@ -800,7 +1234,8 @@ body.dark-mode .float-up {
     display: flex;
     align-items: center;
     gap: 40px;
-    flex-wrap: wrap; /* Responsive */
+    flex-wrap: wrap;
+    /* Responsive */
     margin-top: 30px;
 }
 
@@ -814,22 +1249,27 @@ body.dark-mode .float-up {
     width: 250px;
     height: 250px;
     /* 1. Crea la perspectiva 3D (cuanto menor el nº, más exagerado) */
-    perspective: 1000px; 
-    border-radius: 50%; /* Foto redonda */
-    margin: 0 auto; /* Centrar en móvil */
+    perspective: 1000px;
+    border-radius: 50%;
+    /* Foto redonda */
+    margin: 0 auto;
+    /* Centrar en móvil */
 }
 
 .perfil-foto {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Asegura que la foto no se estire */
+    object-fit: cover;
+    /* Asegura que la foto no se estire */
     border-radius: 50%;
-    border: 5px solid #ffffff; /* Borde blanco estilo foto */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* Sombra inicial */
-    
+    border: 5px solid #ffffff;
+    /* Borde blanco estilo foto */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    /* Sombra inicial */
+
     /* 2. Suaviza el movimiento */
     transition: transform 0.1s ease-out, box-shadow 0.2s ease;
-    
+
     /* 3. Evita que la imagen se corte al girar */
     transform-style: preserve-3d;
     backface-visibility: hidden;
@@ -873,13 +1313,15 @@ body.dark-mode .perfil-foto {
 .especialidad-card {
     background-color: #ffffff;
     padding: 40px 30px;
-    border-radius: 30px; /* Bordes muy redondeados como en la imagen */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Sombra suave */
+    border-radius: 30px;
+    /* Bordes muy redondeados como en la imagen */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    /* Sombra suave */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    border: 1px solid rgba(0,0,0,0.02);
+    border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
 .especialidad-card:hover {
@@ -898,7 +1340,8 @@ body.dark-mode .perfil-foto {
 
 .especialidad-icon i {
     font-size: 2rem;
-    color: var(--accent); /* Azul de tu paleta */
+    color: var(--accent);
+    /* Azul de tu paleta */
 }
 
 .especialidad-card h3 {
@@ -941,9 +1384,10 @@ body.dark-mode .especialidad-card p {
 .metodo-card {
     background-color: #ffffff;
     padding: 40px 30px;
-    border-radius: 35px; /* Bordes extra redondeados como la imagen */
+    border-radius: 35px;
+    /* Bordes extra redondeados como la imagen */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0,0,0,0.03);
+    border: 1px solid rgba(0, 0, 0, 0.03);
     position: relative;
     transition: transform 0.3s ease;
 }
@@ -957,7 +1401,8 @@ body.dark-mode .especialidad-card p {
     display: block;
     font-size: 2.5rem;
     font-weight: 800;
-    color: #e0e7ff; /* Azul muy clarito */
+    color: #e0e7ff;
+    /* Azul muy clarito */
     margin-bottom: 10px;
     line-height: 1;
 }
@@ -983,7 +1428,8 @@ body.dark-mode .metodo-card {
 }
 
 body.dark-mode .metodo-number {
-    color: rgba(96, 165, 250, 0.2); /* Azul translúcido en modo oscuro */
+    color: rgba(96, 165, 250, 0.2);
+    /* Azul translúcido en modo oscuro */
 }
 
 body.dark-mode .metodo-card h3 {
@@ -994,15 +1440,19 @@ body.dark-mode .metodo-card p {
     color: var(--text-muted);
 }
 
-/* --- MODO OSCURO PARA PROYECTOS --- */
-body.dark-mode .project-card {
-    background: var(--card-bg);
-    border-color: var(--border-color);
+
+body.dark-mode .project-card h3 {
+    color: var(--text-main);
 }
 
-body.dark-mode .project-card h3 { color: var(--text-main); }
-body.dark-mode .description { color: var(--text-muted); }
-body.dark-mode .btn-code { background: #334155; color: white; }
+body.dark-mode .description {
+    color: var(--text-muted);
+}
+
+body.dark-mode .btn-code {
+    background: #334155;
+    color: white;
+}
 
 body.dark-mode .tag {
     background: rgba(96, 165, 250, 0.1);
